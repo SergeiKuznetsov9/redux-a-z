@@ -1,23 +1,29 @@
-// вне ноды require работать не будет, поэтому используем импорты
-import { searchArt } from "./art_helper.js";
-import './style.css';
+import "./style.css";
+// npx webpack serve --config webpack.dev.config.js
 
-window.onload = (ev) => {
-  init();
-};
+const counter = document.getElementById("counter");
+const plusBtn = document.getElementById("plus");
+const minusBtn = document.getElementById("minus");
+const resetBtn = document.getElementById("reset");
 
-const init = () => {
-  console.log("hello I am a sample index.js vn");
-  document
-    .getElementById("title-search-button")
-    .addEventListener("click", handleSearchClick);
-};
+let state = 0;
+render();
 
-const handleSearchClick = (ev) => {
-  const title = document.getElementById("title-search-input").value;
-  searchArt({ title }).then(renderResults);
-};
+function render() {
+  counter.textContent = state.toString();
+}
 
-const renderResults = ({ artPieces }) => {
-  document.getElementById("search-results").innerHTML = artPieces.join("");
-};
+plusBtn.addEventListener("click", () => {
+  state++;
+  render();
+});
+
+minusBtn.addEventListener("click", () => {
+  state--;
+  render();
+});
+
+resetBtn.addEventListener("click", () => {
+  state = 0;
+  render();
+});

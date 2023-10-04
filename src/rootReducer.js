@@ -1,13 +1,15 @@
+import { COUNTER_PLUS, COUNTER_MINUS, COUNTER_RESET } from "./types.js";
+
 export function rootReducer(state, action) {
   const newState = { ...state };
   switch (action.type) {
-    case "PLUS":
+    case COUNTER_PLUS:
       newState.count++;
       return newState;
-    case "MINUS":
+    case COUNTER_MINUS:
       newState.count--;
       return newState;
-    case "RESET":
+    case COUNTER_RESET:
       newState.count = 0;
       return newState;
     default:

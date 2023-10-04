@@ -1,5 +1,9 @@
-import { createStore } from "./createStore.js";
+// На этом шаге вместо самописной функции createStore мы импортировали ее из библиотеки Redux
+// Все продолжает работать как и раньше, т.е. это все практически работает так, как в самописной функции
+
+import { createStore } from "redux";
 import { rootReducer } from "./rootReducer.js";
+import { plusAction, minusAction, resetAction, initAction } from "./actions.js";
 import "./style.css";
 // npx webpack serve --config webpack.dev.config.js
 
@@ -14,16 +18,19 @@ store.subscribe(
   () => (counter.textContent = store.getState().count.toString())
 );
 
-store.dispatch({ type: "INIT" });
+// { type: "INIT" } - это Action
+// по хорошему типы лучше передавать константами
+// а экшены - экшнКриэйтерами
+store.dispatch(initAction());
 
 plusBtn.addEventListener("click", () => {
-  store.dispatch({ type: "PLUS" });
+  store.dispatch(plusAction());
 });
 
 minusBtn.addEventListener("click", () => {
-  store.dispatch({ type: "MINUS" });
+  store.dispatch(minusAction());
 });
 
 resetBtn.addEventListener("click", () => {
-  store.dispatch({ type: "RESET" });
+  store.dispatch(resetAction());
 });

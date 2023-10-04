@@ -1,3 +1,5 @@
+import { createStore } from "./createStore.js";
+import { rootReducer } from "./rootReducer.js";
 import "./style.css";
 // npx webpack serve --config webpack.dev.config.js
 
@@ -6,24 +8,22 @@ const plusBtn = document.getElementById("plus");
 const minusBtn = document.getElementById("minus");
 const resetBtn = document.getElementById("reset");
 
-let state = 0;
-render();
+const store = createStore(rootReducer, { count: 0 });
 
-function render() {
-  counter.textContent = state.toString();
-}
+store.subscribe(
+  () => (counter.textContent = store.getState().count.toString())
+);
+
+store.dispatch({ type: "INIT" });
 
 plusBtn.addEventListener("click", () => {
-  state++;
-  render();
+  store.dispatch({ type: "PLUS" });
 });
 
 minusBtn.addEventListener("click", () => {
-  state--;
-  render();
+  store.dispatch({ type: "MINUS" });
 });
 
 resetBtn.addEventListener("click", () => {
-  state = 0;
-  render();
+  store.dispatch({ type: "RESET" });
 });

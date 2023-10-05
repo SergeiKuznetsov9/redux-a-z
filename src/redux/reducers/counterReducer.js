@@ -1,6 +1,8 @@
-import { COUNTER_PLUS, COUNTER_MINUS, COUNTER_RESET } from "./types.js";
+import { COUNTER_PLUS, COUNTER_MINUS, COUNTER_RESET } from "../types.js";
 
-export function rootReducer(state, action) {
+const initialState = { count: 0 };
+
+export function counterReducer(state = initialState, action) {
   const newState = { ...state };
   switch (action.type) {
     case COUNTER_PLUS:

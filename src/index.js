@@ -1,29 +1,11 @@
-import { createStore } from "./createStore.js";
-import { rootReducer } from "./rootReducer.js";
-import "./style.css";
-// npx webpack serve --config webpack.dev.config.js
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import { App } from "./App";
 
-const counter = document.getElementById("counter");
-const plusBtn = document.getElementById("plus");
-const minusBtn = document.getElementById("minus");
-const resetBtn = document.getElementById("reset");
-
-const store = createStore(rootReducer, { count: 0 });
-
-store.subscribe(
-  () => (counter.textContent = store.getState().count.toString())
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
 );
-
-store.dispatch({ type: "INIT" });
-
-plusBtn.addEventListener("click", () => {
-  store.dispatch({ type: "PLUS" });
-});
-
-minusBtn.addEventListener("click", () => {
-  store.dispatch({ type: "MINUS" });
-});
-
-resetBtn.addEventListener("click", () => {
-  store.dispatch({ type: "RESET" });
-});

@@ -1,14 +1,21 @@
 import { useEffect, useState } from "react";
-import { useGetUsersQuery } from "./redux/usersApi";
+import { useAddUserMutation, useGetUsersQuery } from "./redux/usersApi";
 
 export const App = () => {
   const [number, setNumber] = useState("");
+  const [idUser, setIdUser] = useState("");
+  const [nameUser, setNameUser] = useState("");
 
-  //   Сюда можно передать аргумент, который попадет в апи
   const { data = [], isLoading } = useGetUsersQuery(number);
+
+  const [addUser, { isError }] = useAddUserMutation();
 
   const handleChange = (event) => {
     setNumber(event.target.value);
+  };
+
+  const handleAddUser = async () => {
+    await addUser({ name: nameUser, id: idUser });
   };
 
   useEffect(() => {
@@ -19,15 +26,39 @@ export const App = () => {
 
   return (
     <>
+      <label>
+        Введите ID нового пользователя
+        <br />
+        <input
+          type="text"
+          onChange={(ev) => setIdUser(ev.target.value)}
+          value={idUser}
+        />
+      </label>
+      <br />
+      <label>
+        Введите имя нового пользователя
+        <br />
+        <input
+          type="text"
+          onChange={(ev) => setNameUser(ev.target.value)}
+          value={nameUser}
+        />
+      </label>
+      <br />
+
+      <button onClick={handleAddUser}>ADD NEW USER</button>
+      <br />
       <select onChange={handleChange}>
         <option value={""}>All</option>
         <option value={"1"}>1</option>
         <option value={"2"}>2</option>
         <option value={"3"}>3</option>
       </select>
+      <br />
       <div>
         {Array.isArray(data) ? (
-          data.map(({ id, name, email }) => {
+          data.map(({ id, name }) => {
             return (
               <div
                 key={id}
@@ -35,7 +66,6 @@ export const App = () => {
               >
                 <span>{id}</span>
                 <span>{name}</span>
-                <span>{email}</span>
               </div>
             );
           })
@@ -43,7 +73,6 @@ export const App = () => {
           <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
             <span>{data.id}</span>
             <span>{data.name}</span>
-            <span>{data.email}</span>
           </div>
         )}
       </div>

@@ -4,15 +4,21 @@ export const usersApi = createApi({
   reducerPath: "usersApi",
 
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://jsonplaceholder.typicode.com/",
+    baseUrl: "http://localhost:3001/",
   }),
 
   endpoints: (build) => ({
     getUsers: build.query({
-        // Сюда можно передать какой-нибудь параметр
       query: (number = '') => `users/${number}`,
     }),
+    addUser: build.mutation({
+        query: (body) => ({
+            url: 'users',
+            method: 'POST',
+            body,
+        })
+    })
   }),
 });
 
-export const { useGetUsersQuery } = usersApi;
+export const { useGetUsersQuery, useAddUserMutation } = usersApi;

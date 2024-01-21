@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useAddUserMutation, useGetUsersQuery } from "./redux/usersApi";
+import { useAddUserMutation, useGetUsersQuery, useDeleteUserMutation } from "./redux/usersApi";
 
 export const App = () => {
   const [number, setNumber] = useState("");
@@ -9,6 +9,7 @@ export const App = () => {
   const { data = [], isLoading } = useGetUsersQuery(number);
 
   const [addUser, { isError }] = useAddUserMutation();
+  const [deleteUser ] = useDeleteUserMutation();
 
   const handleChange = (event) => {
     setNumber(event.target.value);
@@ -66,6 +67,7 @@ export const App = () => {
               >
                 <span>{id}</span>
                 <span>{name}</span>
+                <span style={{color: 'red', cursor: 'pointer'}} onClick={() => deleteUser(id)}><strong>X</strong></span>
               </div>
             );
           })

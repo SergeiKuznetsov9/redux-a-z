@@ -9,7 +9,8 @@ export const usersApi = createApi({
 
   endpoints: (build) => ({
     getUsers: build.query({
-      query: () => "users",
+        // Сюда можно передать какой-нибудь параметр
+      query: (number = '') => `users/${number}`,
     }),
   }),
 });

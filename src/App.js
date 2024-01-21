@@ -1,8 +1,6 @@
 import { useGetUsersQuery } from "./redux/usersApi";
 
 export const App = () => {
-  // Теперь мы можем вызвать этот хук, после чего произойдет запрос на сервер
-  // Кроме этого результат вызова содержит и ряд других полезных свойств
   const { data = [], isLoading } = useGetUsersQuery();
 
   if (isLoading) return <h1>LOADING...</h1>;

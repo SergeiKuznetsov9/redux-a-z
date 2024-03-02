@@ -1,0 +1,6 @@
+.Main {
+    min-height: 100vh;
+    width: 100%;
+    background-color: rgb(43, 0, 130);
+    padding: 24px 48px;
+}

@@ -1,1 +1,2 @@
-export const App = () => <div>PROJECT WORKS</div>;
+import { Main } from "./components/main/main";
+export const App = () => <Main />;

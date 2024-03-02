@@ -1,0 +1,27 @@
+.UserCard {
+    width: 400px;
+    background-color: #a6a6a6;
+    margin-bottom: 8px;
+    padding: 4px;
+    color: rgb(43, 0, 130);
+    cursor: pointer
+}
+
+.header {
+    font-size: 20px;
+    text-align: center;
+    border-bottom: 2px solid rgb(43, 0, 130);
+}
+
+.block {
+    width: 100%;
+    display: flex;
+}
+
+.blockTitle {
+    width: 20%;
+}
+
+.blockContent {
+    width: 80%;
+}

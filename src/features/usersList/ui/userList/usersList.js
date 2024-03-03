@@ -1,23 +1,18 @@
-import { useEffect, useState } from "react";
 import { UserCard } from "../userCard/userCard";
 import cls from "./usersList.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { getErrorUsers, getUsers } from "../../slice/selectors";
+import { getUsersThunk } from "../../slice/usersSlice";
+import { useEffect } from "react";
 
 export const UsersList = () => {
-  const [users, setUsers] = useState(undefined);
-  const [error, setError] = useState(undefined);
+  const dispatch = useDispatch();
+  const users = useSelector(getUsers);
+  const error = useSelector(getErrorUsers);
 
   useEffect(() => {
-    fetch("http://localhost:3001/users")
-      .then((res) => {
-        if (!res.ok) {
-          throw Error("Can`t load data");
-        }
-
-        return res.json();
-      })
-      .then(setUsers)
-      .catch(setError);
-  }, []);
+    dispatch(getUsersThunk());
+  }, [dispatch]);
 
   return (
     <>
